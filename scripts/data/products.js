@@ -10,7 +10,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/producto-de-ejemplo.jpg",
-    category: categories[1].name || "Bebidas",
+    category: categories[1].name,
     bestSeller: false,
   },
   {
@@ -21,7 +21,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/producto-de-ejemplo.jpg",
-    category: categories[1].name || "Bebidas",
+    category: categories[1].name,
     bestSeller: false,
   },
   {
@@ -32,7 +32,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/producto-de-ejemplo.jpg",
-    category: categories[1].name || "Bebidas",
+    category: categories[1].name,
     bestSeller: false,
   },
 
@@ -45,7 +45,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/producto-de-ejemplo.jpg",
-    category: categories[2].name || "Comidas",
+    category: categories[2].name,
     bestSeller: false,
   },
   {
@@ -56,7 +56,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/producto-de-ejemplo.jpg",
-    category: categories[2].name || "Comidas",
+    category: categories[2].name,
     bestSeller: false,
   },
   {
@@ -67,7 +67,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/producto-de-ejemplo.jpg",
-    category: categories[2].name || "Comidas",
+    category: categories[2].name,
     bestSeller: false,
   },
 
@@ -80,7 +80,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/producto-de-ejemplo.jpg",
-    category: categories[2].name || "Comidas",
+    category: categories[3].name,
     bestSeller: false,
   },
   {
@@ -91,7 +91,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/producto-de-ejemplo.jpg",
-    category: categories[2].name || "Comidas",
+    category: categories[3].name,
     bestSeller: false,
   },
   {
@@ -102,7 +102,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/producto-de-ejemplo.jpg",
-    category: categories[2].name || "Comidas",
+    category: categories[3].name,
     bestSeller: false,
   },
 ];
