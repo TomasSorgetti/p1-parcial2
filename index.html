@@ -13,8 +13,7 @@
   </head>
   <body>
     <header>
-      <!-- Reemplazar por los datos que correspondan -->
-      <h1>Programación I | Parcial 2 | APELLIDO/S | Mi carrito</h1>
+      <h1>Programación I | Parcial 2</h1>
     </header>
     <main>
       <!-- Este es un ejemplo de contenedor de carrito -->
@@ -28,10 +27,28 @@
         </p>
         <button>Ver carrito</button>
       </div>
-      <h2>Productos</h2>
 
-      <div id="productos">
-        <!-- Aca irian los productos -->
+      <div class="wrapper">
+        <!-- Products -->
+        <section>
+          <h2>Productos</h2>
+
+          <!-- Filters -->
+          <div id="filters">
+            <div>
+              <input type="text" id="search" placeholder="Buscar" />
+            </div>
+            <select id="selector"></select>
+          </div>
+
+          <!-- Loader -->
+          <div id="loader">Loading...</div>
+
+          <!-- Products -->
+          <div id="products">
+            <!-- Aca irian los productos -->
+          </div>
+        </section>
       </div>
     </main>
 

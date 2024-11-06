@@ -1,0 +1,13 @@
+#loader {
+  color: red;
+}
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+#products {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}

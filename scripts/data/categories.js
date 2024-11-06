@@ -6,17 +6,27 @@ export const categories = [
   },
   {
     id: 2,
-    name: "Bebidas",
+    name: "Survival",
     image: "",
   },
   {
     id: 3,
-    name: "Comidas",
+    name: "RPG",
     image: "",
   },
   {
     id: 4,
-    name: "postres",
+    name: "FPS",
+    image: "",
+  },
+  {
+    id: 5,
+    name: "Strategy",
+    image: "",
+  },
+  {
+    id: 6,
+    name: "Fantasy",
     image: "",
   },
 ];
