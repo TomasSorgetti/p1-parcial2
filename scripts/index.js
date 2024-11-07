@@ -1,11 +1,13 @@
 import { ProductController } from "./domains/product/product.controller.js";
 import { CategoryController } from "./domains/category/category.controller.js";
-
-// estado de loading
-window.isLoading = false;
+import { CartController } from "./domains/cart/cart.controller.js";
 
 const productController = new ProductController();
 const categoryController = new CategoryController();
+const cartController = new CartController();
+
+// estado de loading
+window.isLoading = false;
 
 const loadingElement = document.getElementById("loader");
 
@@ -18,12 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function init() {
-  productController.displayProducts(setLoading);
-  categoryController.getSelectorCategories(setLoading);
+  productController.displayProducts((product) =>
+    cartController.addToCart(product)
+  );
+  categoryController.getSelectorCategories();
+  cartController.initCart();
 }
 
 // para actualizar el loading
-function setLoading(value) {
+export function setLoading(value) {
   window.isLoading = value;
   updateLoadingElement();
 }
