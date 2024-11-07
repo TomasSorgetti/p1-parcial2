@@ -9,7 +9,6 @@ export class ProductController {
   displayProducts(setLoading) {
     const products = this.#productService.getAllProducts();
     const productContainer = document.querySelector("#products");
-    console.log("products:", products);
 
     //? deberia corroborar que exista el contenedor?
     if (!productContainer) {
@@ -81,3 +80,4 @@ export class ProductController {
     return card;
   }
 }
+

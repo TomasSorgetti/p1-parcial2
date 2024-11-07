@@ -16,7 +16,7 @@ export class ProductService {
         price,
         salePrice,
         image,
-        category,
+        categories,
         bestSeller,
       }) => {
         const newProduct = new Product({
@@ -26,9 +26,13 @@ export class ProductService {
           price,
           salePrice,
           image,
-          category,
           bestSeller,
         });
+
+        if (categories) {
+          categories.forEach((category) => newProduct.addCategory(category));
+        }
+
         return newProduct;
       }
     );

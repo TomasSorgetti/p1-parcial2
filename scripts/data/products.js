@@ -1,7 +1,6 @@
 import { categories } from "./categories.js";
 
 export const products = [
-  // Bebidas
   {
     id: 1,
     name: "ARK Survival Ascended",
@@ -10,7 +9,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/game_ark.png",
-    category: categories[1].name,
+    categories: [categories[1].name],
     bestSeller: true,
   },
   {
@@ -21,7 +20,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/game_horizon.png",
-    category: categories[1].name,
+    categories: [categories[1].name],
     bestSeller: false,
   },
   {
@@ -32,11 +31,10 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/game_valorant.png",
-    category: categories[1].name,
+    categories: [categories[1].name],
     bestSeller: true,
   },
 
-  // Comidas
   {
     id: 4,
     name: "Age of Empires",
@@ -45,7 +43,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/game_age.png",
-    category: categories[2].name,
+    categories: [categories[1].name],
     bestSeller: false,
   },
   {
@@ -56,7 +54,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/game_diablo.png",
-    category: categories[2].name,
+    categories: [categories[1].name],
     bestSeller: false,
   },
   {
@@ -67,11 +65,10 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/game_half_life.png",
-    category: categories[2].name || "FPS",
+    categories: [categories[1].name],
     bestSeller: false,
   },
 
-  // Postres
   {
     id: 7,
     name: "Skyrim",
@@ -80,7 +77,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/game_skyrim.png",
-    category: categories[3].name || "RPG",
+    categories: [categories[1].name],
     bestSeller: true,
   },
   {
@@ -91,7 +88,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/game_torchlight.png",
-    category: categories[3].name || "Fantasy",
+    categories: [categories[1].name],
     bestSeller: false,
   },
   {
@@ -102,7 +99,7 @@ export const products = [
     price: 0,
     salePrice: 0,
     image: "images/game_wow.png",
-    category: categories[3].name || "RPG",
+    categories: [categories[1].name],
     bestSeller: false,
   },
 ];
