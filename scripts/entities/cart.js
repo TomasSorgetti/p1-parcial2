@@ -49,6 +49,7 @@ export class Cart {
   clearCart() {
     this.#cartProducts = [];
   }
+
   getCartProducts() {
     return this.#cartProducts;
   }

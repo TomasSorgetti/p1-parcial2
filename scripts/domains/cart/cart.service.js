@@ -59,16 +59,27 @@ export class CartService {
 
   displayCart() {
     const products = this.#cart.getCartProducts();
-    const cart = document.getElementById("cart");
+    const cart = document.getElementById("cart-items");
     cart.innerHTML = "";
 
     products.forEach((product) => {
+      const { quantity } = product;
+      const { name, image, id } = product.product;
+
       const productCard = document.createElement("div");
-      productCard.className = "card";
+      productCard.className = "cart-card";
       cart.appendChild(productCard);
+      // Product cart image
+      const productImgCont = document.createElement("div");
+      productImgCont.className = "cart-img-cont";
+      productCard.appendChild(productImgCont);
+      const productImg = document.createElement("img");
+      productImg.src = image;
+      productImg.alt = name;
+      productImgCont.appendChild(productImg);
       // Product cart title
       const productTitle = document.createElement("h3");
-      productTitle.textContent = product.product.name;
+      productTitle.textContent = name;
       productCard.appendChild(productTitle);
       // Count container
       const countContainer = document.createElement("div");
@@ -80,7 +91,7 @@ export class CartService {
       removeButton.textContent = "-";
       countContainer.appendChild(removeButton);
       removeButton.addEventListener("click", () => {
-        this.#cart.updateQuantity(product.product.id, product.quantity - 1);
+        this.#cart.updateQuantity(id, quantity - 1);
         this.#updateLocalStorage();
         this.displayCart();
       });

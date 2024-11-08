@@ -43,22 +43,57 @@ export class ProductService {
   }
 
   #createProductCard(product, addToCartCb) {
-    const { image, name, description, price, salePrice, category, bestSeller } =
-      product;
+    const {
+      image,
+      name,
+      description,
+      price,
+      salePrice,
+      category,
+      bestSeller,
+      isFree,
+    } = product;
 
     // Card
     const card = document.createElement("div");
     card.className = "card";
 
-    // Card image container
-    const cardImgContainer = document.createElement("div");
-    cardImgContainer.className = "card-img-container";
-    card.appendChild(cardImgContainer);
     // Card image
     const cardImg = document.createElement("img");
     cardImg.src = image;
     cardImg.alt = name;
-    cardImgContainer.appendChild(cardImg);
+    cardImg.className = "card-img";
+    card.appendChild(cardImg);
+
+    // Best Seller
+    if (bestSeller) {
+      const bestSelerText = document.createElement("span");
+      bestSelerText.textContent = "best seller";
+      bestSelerText.className = "best-seller";
+      card.appendChild(bestSelerText);
+    }
+
+    if (!isFree) {
+      // Price
+      const priceCont = document.createElement("div");
+      priceCont.className = "price-cont";
+      card.appendChild(priceCont);
+      if (price != 0) {
+        const priceText = document.createElement("p");
+        priceText.className = "price";
+        priceText.innerText = `$ ${price}`;
+        priceCont.appendChild(priceText);
+      }
+      const salePriceText = document.createElement("p");
+      salePriceText.className = "sale-price";
+      salePriceText.innerText = `$ ${salePrice}`;
+      priceCont.appendChild(salePriceText);
+    } else {
+      const freeText = document.createElement("span");
+      freeText.className = "free";
+      freeText.innerText = `Free`;
+      card.appendChild(freeText);
+    }
 
     // Card Text Content
     const cardTextContainer = document.createElement("div");
@@ -77,12 +112,21 @@ export class ProductService {
 
     // Card Button
     const buyButton = document.createElement("button");
-    buyButton.textContent = "Comprar";
     cardTextContainer.appendChild(buyButton);
     // Card Button Event
     buyButton.addEventListener("click", () => {
       addToCartCb(product);
     });
+    // Card Button Content
+    const buttonContent = document.createElement("div");
+    buyButton.appendChild(buttonContent);
+    const buttonText = document.createElement("span");
+    buttonText.textContent = "Comprar";
+    buttonContent.appendChild(buttonText);
+    const buttonIcon = document.createElement("img");
+    buttonIcon.src = "/images/arrowIcon.png";
+    buttonIcon.alt = "arrow icon";
+    buttonContent.appendChild(buttonIcon);
 
     return card;
   }
@@ -98,6 +142,7 @@ export class ProductService {
         image,
         categories,
         bestSeller,
+        isFree,
       }) => {
         const newProduct = new Product({
           id,
@@ -107,6 +152,7 @@ export class ProductService {
           salePrice,
           image,
           bestSeller,
+          isFree,
         });
 
         if (categories) {
