@@ -116,6 +116,10 @@ export class ProductService {
     // Card Button Event
     buyButton.addEventListener("click", () => {
       addToCartCb(product);
+      const cart = document.getElementById("cart");
+      if (cart.classList.contains("hidden")) {
+        cart.classList.replace("hidden", "show");
+      }
     });
     // Card Button Content
     const buttonContent = document.createElement("div");
