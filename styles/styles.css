@@ -257,3 +257,26 @@ body {
   top: 0;
   right: 1rem;
 }
+.toggle-cart {
+  background-color: var(--black);
+  border: 2px solid var(--white);
+  transition: 0.45s ease-in-out;
+}
+.toggle-cart:hover {
+  border: 2px solid var(--pink);
+}
+.toggle-count {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--pink);
+  height: 1.2rem;
+  width: 1.2rem;
+  color: var(--white);
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
