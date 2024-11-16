@@ -1,4 +1,4 @@
-import { Cart } from "../../entities/cart.js";
+import { Cart } from "../../entities/cart.entity.js";
 import { Product } from "../../entities/products.entity.js";
 
 export class CartService {
