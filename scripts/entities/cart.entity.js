@@ -59,4 +59,16 @@ export class Cart {
       (cartProduct) => cartProduct.product.id === productId
     );
   }
+
+  getTotalPrice() {
+    let total = 0;
+    this.#cartProducts.forEach((cartProduct) => {
+      console.log("Cart Product", cartProduct);
+
+      total +=
+        (cartProduct.product.isFree ? 0 : cartProduct.product.salePrice) *
+        cartProduct.quantity;
+    });
+    return total;
+  }
 }

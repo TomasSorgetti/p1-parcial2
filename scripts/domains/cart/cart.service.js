@@ -59,6 +59,7 @@ export class CartService {
 
   displayCart() {
     const products = this.#cart.getCartProducts();
+
     const cart = document.getElementById("cart");
     const cartItems = document.getElementById("cart-items");
     cartItems.innerHTML = "";
@@ -82,6 +83,9 @@ export class CartService {
       }
     });
 
+    const total = this.#cart.getTotalPrice();
+    const totalPrice = document.getElementById("total-price");
+    totalPrice.textContent = total;
     const closeCart = document.getElementById("close-cart");
     closeCart.addEventListener("click", () => {
       if (cart.classList.contains("show")) {
