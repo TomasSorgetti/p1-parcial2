@@ -95,10 +95,14 @@ export class CartService {
     const clearCartBnt = document.getElementById("clear-cart");
     clearCartBnt.addEventListener("click", () => {
       this.#cart.clearCart();
+      cart.classList.replace("show", "hidden");
       this.#updateLocalStorage();
       this.displayCart();
     });
 
+    if (products.length === 0) {
+      cartItems.textContent = "El carrito esta vacio...";
+    }
     products.forEach((product) => {
       const { quantity } = product;
       const { name, image, id, salePrice, isFree } = product.product;
@@ -127,9 +131,9 @@ export class CartService {
       // Product cart price
       const productTotalPrice = document.createElement("span");
       productTotalPrice.className = "cart-product-total-price";
-      productTotalPrice.innerText = `$ ${
-        isFree ? "Free" : salePrice * quantity
-      }`;
+      productTotalPrice.innerText = isFree
+        ? "Gratis"
+        : `$${salePrice * quantity}`;
       productInfoContainer.appendChild(productTotalPrice);
 
       // Count container
@@ -143,6 +147,9 @@ export class CartService {
       countContainer.appendChild(removeButton);
       removeButton.addEventListener("click", () => {
         this.#cart.updateQuantity(id, quantity - 1);
+        if (products.length === 1 && quantity === 1) {
+          cart.classList.replace("show", "hidden");
+        }
         this.#updateLocalStorage();
         this.displayCart();
       });
@@ -156,6 +163,7 @@ export class CartService {
       addButton.textContent = "+";
       countContainer.appendChild(addButton);
       addButton.addEventListener("click", () => {
+        if (isFree) return;
         this.#cart.updateQuantity(id, quantity + 1);
         this.#updateLocalStorage();
         this.displayCart();
@@ -174,16 +182,18 @@ export class CartService {
     });
   }
 
-  addToCart(product) {
+  addToCart(product, quantity) {
     const productFound = this.#cart.findProduct(product.id);
 
     if (productFound) {
-      this.#cart.updateQuantity(
-        productFound.product.id,
-        productFound.quantity + 1
-      );
+      quantity
+        ? this.#cart.updateQuantity(productFound.product.id, quantity)
+        : this.#cart.updateQuantity(
+            productFound.product.id,
+            productFound.quantity + 1
+          );
     } else {
-      this.#cart.addProduct({ product, quantity: 1 });
+      this.#cart.addProduct({ product, quantity: quantity ? quantity : 1 });
     }
 
     this.#updateLocalStorage();

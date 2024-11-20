@@ -35,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function init() {
-  productController.displayProducts((product) =>
-    cartController.addToCart(product)
+  productController.displayProducts((product, quantity) =>
+    cartController.addToCart(product, quantity)
   );
   categoryController.getSelectorCategories();
   cartController.initCart();

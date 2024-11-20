@@ -20,9 +20,9 @@ export class CartController {
       console.log(error.message);
     }
   }
-  addToCart(product) {
+  addToCart(product, quantity) {
     try {
-      this.#cartService.addToCart(product);
+      this.#cartService.addToCart(product, quantity);
     } catch (error) {
       console.log(error.message);
     }

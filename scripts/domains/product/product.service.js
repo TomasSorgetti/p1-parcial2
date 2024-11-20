@@ -118,9 +118,9 @@ export class ProductService {
     detailButton.classList.add("detail-button");
     detailButton.textContent = "Ver más";
     detailButton.addEventListener("click", () => {
-      this.#generateModal(product);
+      this.#generateModal(product, addToCartCb);
     });
-    
+
     // Card Button
     const buyButton = document.createElement("button");
     cardTextContainer.appendChild(buyButton);
@@ -212,6 +212,9 @@ export class ProductService {
     const productContainer = document.querySelector("#products");
     productContainer.innerHTML = "";
 
+    if (filteredProducts.length === 0) {
+      productContainer.textContent = "No se encontraron productos.";
+    }
     filteredProducts.forEach((product) => {
       productContainer.appendChild(
         this.#createProductCard(product, addToCartCb)
@@ -219,8 +222,12 @@ export class ProductService {
     });
   }
 
-  #generateModal(product) {
+  #generateModal(product, addToCartCb) {
     const modal = document.getElementById("modal");
+    // evento para cerrar el modal
+    modal.addEventListener("click", () => {
+      modal.removeAttribute("class");
+    });
     modal.innerHTML = "";
     // seteo el modal a mostrar
     modal.className = "show";
@@ -228,6 +235,12 @@ export class ProductService {
     const modalContent = document.createElement("div");
     modal.appendChild(modalContent);
     modalContent.className = "modal-content";
+
+    // evento para evitar que se cierre el modal al hacer click en el contenido
+    modalContent.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
     // creo el boton para cerrar el modal
     const closeModalButton = document.createElement("button");
     closeModalButton.textContent = "X";
@@ -255,5 +268,72 @@ export class ProductService {
     const modalDescription = document.createElement("p");
     modalTextContainer.appendChild(modalDescription);
     modalDescription.textContent = product.description;
+
+    // Modal Price
+    const modalPrice = document.createElement("p");
+    modalPrice.textContent = `$${product.price}`;
+    modalPrice.className = "modal-price";
+    modalTextContainer.appendChild(modalPrice);
+
+    const modalSalePrice = document.createElement("p");
+    modalSalePrice.textContent = product.isFree
+      ? "Gratis"
+      : `$${product.salePrice}`;
+    modalSalePrice.className = "modal-sale-price";
+    modalTextContainer.appendChild(modalSalePrice);
+
+    let quantityCount = 1;
+    // Count container
+    const countContainer = document.createElement("div");
+    countContainer.className = "count-container";
+    modalTextContainer.appendChild(countContainer);
+    // Remove button
+    const removeButton = document.createElement("button");
+    removeButton.className = "remove-button";
+    removeButton.textContent = "-";
+    countContainer.appendChild(removeButton);
+    removeButton.addEventListener("click", () => {
+      if (quantityCount > 1) {
+        quantityCount -= 1;
+        count.textContent = quantityCount;
+        modalPrice.textContent = `$${product.price * quantityCount}`;
+        modalSalePrice.textContent = `$${product.salePrice * quantityCount}`;
+      }
+    });
+
+    // count
+    const count = document.createElement("p");
+    count.textContent = quantityCount;
+    countContainer.appendChild(count);
+
+    // Add button
+    const addButton = document.createElement("button");
+    addButton.className = "add-button";
+    addButton.textContent = "+";
+    countContainer.appendChild(addButton);
+    addButton.addEventListener("click", () => {
+      if (product.isFree) return;
+      else {
+        quantityCount += 1;
+        count.textContent = quantityCount;
+        modalPrice.textContent = `$${product.price * quantityCount}`;
+        modalSalePrice.textContent = `$${product.salePrice * quantityCount}`;
+      }
+    });
+
+    // Modal Buy Button
+    const buyButton = document.createElement("button");
+    buyButton.textContent = "Comprar";
+    buyButton.classList.add("modal-buy-button");
+    modalTextContainer.appendChild(buyButton);
+    // Modal Buy Button Event
+    buyButton.addEventListener("click", () => {
+      modal.removeAttribute("class");
+      addToCartCb(product, quantityCount);
+      const cart = document.getElementById("cart");
+      if (cart.classList.contains("hidden")) {
+        cart.classList.replace("hidden", "show");
+      }
+    });
   }
 }
