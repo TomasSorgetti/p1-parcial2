@@ -134,7 +134,7 @@ export class ProductService {
     buttonText.textContent = "Comprar";
     buttonContent.appendChild(buttonText);
     const buttonIcon = document.createElement("img");
-    buttonIcon.src = "/images/arrowIcon.png";
+    buttonIcon.src = "images/arrowIcon.png";
     buttonIcon.alt = "arrow icon";
     buttonContent.appendChild(buttonIcon);
 

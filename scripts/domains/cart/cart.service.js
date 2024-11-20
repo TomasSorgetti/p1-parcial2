@@ -73,7 +73,7 @@ export class CartService {
 
     const toggleCart = document.createElement("button");
     const toggleCartImg = document.createElement("img");
-    toggleCartImg.src = "/images/toggleCart.png";
+    toggleCartImg.src = "images/toggleCart.png";
     toggleCartImg.alt = "cart icon";
     toggleCart.appendChild(toggleCartImg);
     toggleCart.className = "toggle-cart";
