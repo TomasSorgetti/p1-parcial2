@@ -202,8 +202,8 @@ export class ProductService {
     // ordeno el array de productos filtrados
     filteredProducts.sort((a, b) => {
       return order === "asc"
-        ? (a.isFree ? 0 : a.salePrice) - b.salePrice
-        : b.salePrice - (a.isFree ? 0 : a.salePrice);
+        ? (a.isFree ? 0 : a.salePrice) - (b.isFree ? 0 : b.salePrice)
+        : (b.isFree ? 0 : b.salePrice) - (a.isFree ? 0 : a.salePrice);
     });
 
     // seteo el array de productos
