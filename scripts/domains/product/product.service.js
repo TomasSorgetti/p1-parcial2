@@ -58,6 +58,8 @@ export class ProductService {
     const card = document.createElement("div");
     card.className = "card";
 
+    // Le agrego el evento a la card para mostrar el modal
+
     // Card image
     const cardImg = document.createElement("img");
     cardImg.src = image;
@@ -110,6 +112,15 @@ export class ProductService {
     descriptionElement.textContent = cutText(description);
     cardTextContainer.appendChild(descriptionElement);
 
+    // Detail Card Button
+    const detailButton = document.createElement("button");
+    cardTextContainer.appendChild(detailButton);
+    detailButton.classList.add("detail-button");
+    detailButton.textContent = "Ver más";
+    detailButton.addEventListener("click", () => {
+      this.#generateModal(product);
+    });
+    
     // Card Button
     const buyButton = document.createElement("button");
     cardTextContainer.appendChild(buyButton);
@@ -121,6 +132,7 @@ export class ProductService {
         cart.classList.replace("hidden", "show");
       }
     });
+
     // Card Button Content
     const buttonContent = document.createElement("div");
     buyButton.appendChild(buttonContent);
@@ -205,5 +217,43 @@ export class ProductService {
         this.#createProductCard(product, addToCartCb)
       );
     });
+  }
+
+  #generateModal(product) {
+    const modal = document.getElementById("modal");
+    modal.innerHTML = "";
+    // seteo el modal a mostrar
+    modal.className = "show";
+    // creo el contenido del modal
+    const modalContent = document.createElement("div");
+    modal.appendChild(modalContent);
+    modalContent.className = "modal-content";
+    // creo el boton para cerrar el modal
+    const closeModalButton = document.createElement("button");
+    closeModalButton.textContent = "X";
+    closeModalButton.className = "close-modal";
+    modalContent.appendChild(closeModalButton);
+    closeModalButton.className = "close-modal";
+    closeModalButton.addEventListener("click", () => {
+      modal.removeAttribute("class");
+    });
+    // creo la imágen del modal
+    const modalImage = document.createElement("img");
+    modalContent.appendChild(modalImage);
+    modalImage.src = product.image;
+    modalImage.alt = product.name;
+
+    // creo el contenedor del texto del modal
+    const modalTextContainer = document.createElement("div");
+    modalContent.appendChild(modalTextContainer);
+    modalTextContainer.className = "modal-text-container";
+    // creo el titulo del modal
+    const modalTitle = document.createElement("h3");
+    modalTextContainer.appendChild(modalTitle);
+    modalTitle.textContent = product.name;
+    // creo la descripcion del modal
+    const modalDescription = document.createElement("p");
+    modalTextContainer.appendChild(modalDescription);
+    modalDescription.textContent = product.description;
   }
 }
