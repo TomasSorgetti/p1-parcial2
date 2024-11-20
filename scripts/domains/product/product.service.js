@@ -172,13 +172,38 @@ export class ProductService {
     return this.#products;
   }
 
-  getProductsByCategory(categoryName) {
-    return this.#products.filter(
-      (product) => product.category === categoryName
-    );
-  }
+  getProductsFiltered(addToCartCb) {
+    // obtengo los valores del filtro
+    const search = document.getElementById("search").value.toLowerCase();
+    const category = document.getElementById("selector").value;
+    const order = document.getElementById("order").value;
 
-  getProductsByName(name) {
-    return this.#products.filter((product) => product.name === name);
+    // filtro el array de productos por nombre y categoria
+    const filteredProducts = products.filter((product) => {
+      return (
+        product.name.toLowerCase().includes(search) &&
+        (category === "todos" || product.categories.includes(category))
+      );
+    });
+
+    // ordeno el array de productos filtrados
+    filteredProducts.sort((a, b) => {
+      return order === "asc"
+        ? (a.isFree ? 0 : a.salePrice) - b.salePrice
+        : b.salePrice - (a.isFree ? 0 : a.salePrice);
+    });
+
+    // seteo el array de productos
+    this.#products = filteredProducts;
+
+    // vuevlo a renderizar los productos borrando y cargando denuevo las cards
+    const productContainer = document.querySelector("#products");
+    productContainer.innerHTML = "";
+
+    filteredProducts.forEach((product) => {
+      productContainer.appendChild(
+        this.#createProductCard(product, addToCartCb)
+      );
+    });
   }
 }

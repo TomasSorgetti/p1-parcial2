@@ -13,4 +13,12 @@ export class ProductController {
       console.log(error.message);
     }
   }
+
+  getProductsFiltered(addToCartCb) {
+    try {
+      this.#productService.getProductsFiltered(addToCartCb);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 }

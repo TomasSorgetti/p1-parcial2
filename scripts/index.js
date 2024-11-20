@@ -17,6 +17,21 @@ function updateLoadingElement() {
 
 document.addEventListener("DOMContentLoaded", () => {
   init();
+  document.getElementById("search").addEventListener("input", () => {
+    productController.getProductsFiltered((product) =>
+      cartController.addToCart(product)
+    );
+  });
+  document.getElementById("selector").addEventListener("change", () => {
+    productController.getProductsFiltered((product) =>
+      cartController.addToCart(product)
+    );
+  });
+  document.getElementById("order").addEventListener("change", () => {
+    productController.getProductsFiltered((product) =>
+      cartController.addToCart(product)
+    );
+  });
 });
 
 function init() {
