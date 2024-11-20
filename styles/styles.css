@@ -41,6 +41,8 @@ body {
   position: relative;
   width: 100%;
   max-width: 360px;
+  height: 100%;
+  max-height: 500px;
   cursor: pointer;
   border-radius: 0.375rem;
   overflow: hidden;
