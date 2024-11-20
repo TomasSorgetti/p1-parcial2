@@ -6,9 +6,9 @@ export class ProductController {
     this.#productService = new ProductService();
   }
 
-  displayProducts(addToCartCb) {
+  displayProducts(addToCartCb, stockController) {
     try {
-      this.#productService.initProducts(addToCartCb);
+      this.#productService.initProducts(addToCartCb, stockController);
     } catch (error) {
       console.log(error.message);
     }

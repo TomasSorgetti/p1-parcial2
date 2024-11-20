@@ -9,7 +9,7 @@ export class ProductService {
     this.#products = this.#setProducts();
   }
 
-  initProducts(addToCartCb) {
+  initProducts(addToCartCb, stockController) {
     const products = this.getAllProducts();
     const productContainer = document.querySelector("#products");
 
@@ -29,7 +29,7 @@ export class ProductService {
 
         products.forEach((product) => {
           productContainer.appendChild(
-            this.#createProductCard(product, addToCartCb)
+            this.#createProductCard(product, addToCartCb, stockController)
           );
         });
       } catch (error) {
@@ -42,17 +42,10 @@ export class ProductService {
     }, 1000);
   }
 
-  #createProductCard(product, addToCartCb) {
-    const {
-      image,
-      name,
-      description,
-      price,
-      salePrice,
-      category,
-      bestSeller,
-      isFree,
-    } = product;
+  #createProductCard(product, addToCartCb, stockController) {
+    const { image, name, description, price, salePrice, bestSeller, isFree } =
+      product;
+    const stock = stockController.getStockByProductId(product.id);
 
     // Card
     const card = document.createElement("div");
@@ -118,7 +111,7 @@ export class ProductService {
     detailButton.classList.add("detail-button");
     detailButton.textContent = "Ver más";
     detailButton.addEventListener("click", () => {
-      this.#generateModal(product, addToCartCb);
+      this.#generateModal(product, addToCartCb, stockController);
     });
 
     // Card Button
@@ -223,8 +216,11 @@ export class ProductService {
     });
   }
 
-  #generateModal(product, addToCartCb) {
+  // TODO => Agregar categorías al modal
+  #generateModal(product, addToCartCb, stockController) {
     const modal = document.getElementById("modal");
+    const stock = stockController.getStockByProductId(product.id);
+
     // evento para cerrar el modal
     modal.addEventListener("click", () => {
       modal.removeAttribute("class");
@@ -296,6 +292,7 @@ export class ProductService {
     removeButton.addEventListener("click", () => {
       if (quantityCount > 1) {
         quantityCount -= 1;
+
         count.textContent = quantityCount;
         modalPrice.textContent = `$${product.price * quantityCount}`;
         modalSalePrice.textContent = `$${product.salePrice * quantityCount}`;
@@ -314,12 +311,11 @@ export class ProductService {
     countContainer.appendChild(addButton);
     addButton.addEventListener("click", () => {
       if (product.isFree) return;
-      else {
-        quantityCount += 1;
-        count.textContent = quantityCount;
-        modalPrice.textContent = `$${product.price * quantityCount}`;
-        modalSalePrice.textContent = `$${product.salePrice * quantityCount}`;
-      }
+      quantityCount += 1;
+
+      count.textContent = quantityCount;
+      modalPrice.textContent = `$${product.price * quantityCount}`;
+      modalSalePrice.textContent = `$${product.salePrice * quantityCount}`;
     });
 
     // Modal Buy Button
