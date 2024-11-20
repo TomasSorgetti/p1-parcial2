@@ -125,7 +125,8 @@ export class ProductService {
     const buyButton = document.createElement("button");
     cardTextContainer.appendChild(buyButton);
     // Card Button Event
-    buyButton.addEventListener("click", () => {
+    buyButton.addEventListener("click", (event) => {
+      event.stopPropagation();
       addToCartCb(product);
       const cart = document.getElementById("cart");
       if (cart.classList.contains("hidden")) {

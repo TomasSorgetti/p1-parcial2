@@ -62,6 +62,13 @@ export class CartService {
 
     const cart = document.getElementById("cart");
     const cartItems = document.getElementById("cart-items");
+
+    document.addEventListener("click", (event) => {
+      if (cart.classList.contains("show") && !cart.contains(event.target)) {
+        cart.classList.replace("show", "hidden");
+      }
+    });
+
     cartItems.innerHTML = "";
 
     const toggleCart = document.createElement("button");
@@ -75,7 +82,8 @@ export class CartService {
     toggleCount.textContent = products.length;
     toggleCart.appendChild(toggleCount);
     cart.appendChild(toggleCart);
-    toggleCart.addEventListener("click", () => {
+    toggleCart.addEventListener("click", (event) => {
+      event.stopPropagation();
       if (cart.classList.contains("hidden")) {
         cart.classList.replace("hidden", "show");
       } else if (cart.classList.contains("show")) {
@@ -145,7 +153,8 @@ export class CartService {
       removeButton.className = "remove-button";
       removeButton.textContent = "-";
       countContainer.appendChild(removeButton);
-      removeButton.addEventListener("click", () => {
+      removeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
         this.#cart.updateQuantity(id, quantity - 1);
         if (products.length === 1 && quantity === 1) {
           cart.classList.replace("show", "hidden");
@@ -162,7 +171,8 @@ export class CartService {
       addButton.className = "add-button";
       addButton.textContent = "+";
       countContainer.appendChild(addButton);
-      addButton.addEventListener("click", () => {
+      addButton.addEventListener("click", (event) => {
+        event.stopPropagation();
         if (isFree) return;
         this.#cart.updateQuantity(id, quantity + 1);
         this.#updateLocalStorage();
@@ -174,7 +184,11 @@ export class CartService {
       deleteProduct.innerText = "X";
       deleteProduct.className = "delete-cart-product";
       productCard.appendChild(deleteProduct);
-      deleteProduct.addEventListener("click", () => {
+      deleteProduct.addEventListener("click", (event) => {
+        event.stopPropagation();
+        if (products.length === 1) {
+          cart.classList.replace("show", "hidden");
+        }
         this.#cart.removeProduct(id);
         this.#updateLocalStorage();
         this.displayCart();
@@ -187,7 +201,10 @@ export class CartService {
 
     if (productFound) {
       quantity
-        ? this.#cart.updateQuantity(productFound.product.id, quantity)
+        ? this.#cart.updateQuantity(
+            productFound.product.id,
+            productFound.quantity + quantity
+          )
         : this.#cart.updateQuantity(
             productFound.product.id,
             productFound.quantity + 1
