@@ -267,6 +267,16 @@ export class ProductService {
     modalTextContainer.appendChild(modalDescription);
     modalDescription.textContent = product.description;
 
+    // Modal categories
+    const modalCategoriesContainer = document.createElement("div");
+    modalCategoriesContainer.className = "modal-categories-container";
+    modalTextContainer.appendChild(modalCategoriesContainer);
+    product.categories.forEach((category) => {
+      const modalCategory = document.createElement("span");
+      modalCategory.textContent = category;
+      modalCategoriesContainer.appendChild(modalCategory);
+    });
+
     // Modal Price
     const modalPrice = document.createElement("p");
     modalPrice.textContent = `$${product.price}`;

@@ -458,7 +458,7 @@ body {
   margin: 0;
 }
 .modal-buy-button {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   width: 100%;
   height: 56px;
   border-radius: 6px;
@@ -476,4 +476,16 @@ body {
 }
 .modal-buy-button:hover {
   box-shadow: 0 0 10px 0 #5a5a5ac7;
+}
+.modal-categories-container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+.modal-categories-container span {
+  background-color: var(--black);
+  color: var(--white);
+  padding: 0.2rem 1rem 0.3rem 1rem;
+  border-radius: 100px;
 }
