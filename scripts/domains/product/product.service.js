@@ -45,7 +45,7 @@ export class ProductService {
   #createProductCard(product, addToCartCb, stockController) {
     const { image, name, description, price, salePrice, bestSeller, isFree } =
       product;
-    const stock = stockController.getStockByProductId(product.id);
+    // const stock = stockController.getStockByProductId(product.id);
 
     // Card
     const card = document.createElement("div");
@@ -219,7 +219,7 @@ export class ProductService {
   // TODO => Agregar categorías al modal
   #generateModal(product, addToCartCb, stockController) {
     const modal = document.getElementById("modal");
-    const stock = stockController.getStockByProductId(product.id);
+    // const stock = stockController.getStockByProductId(product.id);
 
     // evento para cerrar el modal
     modal.addEventListener("click", () => {
