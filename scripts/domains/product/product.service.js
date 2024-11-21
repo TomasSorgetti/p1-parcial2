@@ -185,7 +185,7 @@ export class ProductService {
     const order = document.getElementById("order").value;
 
     // filtro el array de productos por nombre y categoria
-    const filteredProducts = products.filter((product) => {
+    const filteredProducts = this.#setProducts().filter((product) => {
       return (
         product.name.toLowerCase().includes(search) &&
         (category === "todos" || product.categories.includes(category))
@@ -209,6 +209,7 @@ export class ProductService {
     if (filteredProducts.length === 0) {
       productContainer.textContent = "No se encontraron productos.";
     }
+
     filteredProducts.forEach((product) => {
       productContainer.appendChild(
         this.#createProductCard(product, addToCartCb)

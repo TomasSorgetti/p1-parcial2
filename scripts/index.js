@@ -20,18 +20,18 @@ function updateLoadingElement() {
 document.addEventListener("DOMContentLoaded", () => {
   init();
   document.getElementById("search").addEventListener("input", () => {
-    productController.getProductsFiltered((product) =>
-      cartController.addToCart(product)
+    productController.getProductsFiltered((product, quantity) =>
+      cartController.addToCart(product, quantity)
     );
   });
   document.getElementById("selector").addEventListener("change", () => {
-    productController.getProductsFiltered((product) =>
-      cartController.addToCart(product)
+    productController.getProductsFiltered((product, quantity) =>
+      cartController.addToCart(product, quantity)
     );
   });
   document.getElementById("order").addEventListener("change", () => {
-    productController.getProductsFiltered((product) =>
-      cartController.addToCart(product)
+    productController.getProductsFiltered((product, quantity) =>
+      cartController.addToCart(product, quantity)
     );
   });
 });
