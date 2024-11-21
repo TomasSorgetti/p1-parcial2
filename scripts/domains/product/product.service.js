@@ -310,12 +310,16 @@ export class ProductService {
     addButton.textContent = "+";
     countContainer.appendChild(addButton);
     addButton.addEventListener("click", () => {
-      if (product.isFree) return;
       quantityCount += 1;
 
       count.textContent = quantityCount;
-      modalPrice.textContent = `$${product.price * quantityCount}`;
-      modalSalePrice.textContent = `$${product.salePrice * quantityCount}`;
+      modalPrice.textContent = product.isFree
+        ? `$${product.price}`
+        : `$${product.price * quantityCount}`;
+
+      modalSalePrice.textContent = product.isFree
+        ? "Gratis"
+        : `$${product.salePrice * quantityCount}`;
     });
 
     // Modal Buy Button

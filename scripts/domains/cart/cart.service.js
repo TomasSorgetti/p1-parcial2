@@ -173,7 +173,7 @@ export class CartService {
       countContainer.appendChild(addButton);
       addButton.addEventListener("click", (event) => {
         event.stopPropagation();
-        if (isFree) return;
+        
         this.#cart.updateQuantity(id, quantity + 1);
         this.#updateLocalStorage();
         this.displayCart();
@@ -193,6 +193,11 @@ export class CartService {
         this.#updateLocalStorage();
         this.displayCart();
       });
+    });
+
+    const buyButton = document.getElementById("buy-cart");
+    buyButton.addEventListener("click", () => {
+      alert("NOT_IMPLEMENTED");
     });
   }
 
