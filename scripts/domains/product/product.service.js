@@ -21,6 +21,10 @@ export class ProductService {
 
     // seteo el loading
     setLoading(true);
+    productContainer.innerHTML = "";
+    products.forEach(() => {
+      productContainer.appendChild(this.#createSkeletonCard());
+    });
 
     // SetTimeOut para simular el tiempo de carga
     setTimeout(() => {
@@ -36,10 +40,53 @@ export class ProductService {
         console.error("Error al cargar productos:", error);
         productContainer.innerHTML = "<p>Error al cargar los productos.</p>";
       } finally {
-        // finalizo el loading
         setLoading(false);
       }
     }, 1000);
+  }
+  #createSkeletonCard() {
+    const loadingCard = document.createElement("div");
+    loadingCard.className = "loading-card";
+
+    const loadingPrice = document.createElement("div");
+    loadingPrice.className = "loading-card-price";
+    loadingCard.appendChild(loadingPrice);
+
+    const loadingTextCont = document.createElement("div");
+    loadingTextCont.className = "loading-text-cont";
+    loadingCard.appendChild(loadingTextCont);
+    // title
+    const loadingTitle = document.createElement("div");
+    loadingTitle.className = "loading-title";
+    loadingTextCont.appendChild(loadingTitle);
+    // text cont
+    const loadingText = document.createElement("div");
+    loadingText.className = "loading-text";
+    loadingTextCont.appendChild(loadingText);
+    // text cont
+    const loadingText1 = document.createElement("div");
+    loadingText1.className = "loading-paragraph";
+    loadingText.appendChild(loadingText1);
+    // text cont
+    const loadingText2 = document.createElement("div");
+    loadingText2.className = "loading-paragraph";
+    loadingText.appendChild(loadingText2);
+    // text cont
+    const loadingText3 = document.createElement("div");
+    loadingText3.className = "loading-paragraph";
+    loadingText.appendChild(loadingText3);
+    // buttons
+    const loadingButtons = document.createElement("div");
+    loadingButtons.className = "loading-buttons";
+    loadingTextCont.appendChild(loadingButtons);
+    const loadingButton1 = document.createElement("div");
+    loadingButton1.className = "loading-button";
+    loadingButtons.appendChild(loadingButton1);
+    const loadingButton2 = document.createElement("div");
+    loadingButton2.className = "loading-button";
+    loadingButtons.appendChild(loadingButton2);
+
+    return loadingCard;
   }
 
   #createProductCard(product, addToCartCb, stockController) {

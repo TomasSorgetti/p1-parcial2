@@ -55,5 +55,5 @@ function init() {
 // para actualizar el loading
 export function setLoading(value) {
   window.isLoading = value;
-  updateLoadingElement();
+  // updateLoadingElement();
 }
