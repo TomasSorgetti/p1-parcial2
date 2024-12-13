@@ -173,7 +173,7 @@ export class CartService {
       countContainer.appendChild(addButton);
       addButton.addEventListener("click", (event) => {
         event.stopPropagation();
-        
+
         this.#cart.updateQuantity(id, quantity + 1);
         this.#updateLocalStorage();
         this.displayCart();
@@ -181,7 +181,10 @@ export class CartService {
 
       // remove the product from cart
       const deleteProduct = document.createElement("button");
-      deleteProduct.innerText = "X";
+      const deleteProductImg = document.createElement("img");
+      deleteProductImg.src = "images/delete_product.svg";
+      deleteProductImg.alt = "close icon";
+      deleteProduct.appendChild(deleteProductImg);
       deleteProduct.className = "delete-cart-product";
       productCard.appendChild(deleteProduct);
       deleteProduct.addEventListener("click", (event) => {
