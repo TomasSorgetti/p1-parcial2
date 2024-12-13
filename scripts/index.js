@@ -2,6 +2,7 @@ import { ProductController } from "./domains/product/product.controller.js";
 import { CategoryController } from "./domains/category/category.controller.js";
 import { CartController } from "./domains/cart/cart.controller.js";
 import { StockController } from "./domains/stock/stock.controller.js";
+import { Slider } from "./common/components/slider.js";
 
 const productController = new ProductController();
 const categoryController = new CategoryController();
@@ -34,6 +35,11 @@ document.addEventListener("DOMContentLoaded", () => {
       cartController.addToCart(product, quantity)
     );
   });
+
+  const carouselContainer = document.querySelector(".banner");
+  if (carouselContainer) {
+    new Slider(carouselContainer);
+  }
 });
 
 function init() {

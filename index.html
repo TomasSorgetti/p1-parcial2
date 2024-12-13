@@ -32,27 +32,71 @@
         </div>
       </div>
 
-      <!-- Main banner -->
-      <section class="banner" role="banner">
-        <div class="banner_content_container">
-          <!-- Banner content -->
-          <div class="banner_content">
-            <h1>HEAVENZ</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-              aliquam in porro, obcaecati natus autem eum quam vel blanditiis.
-            </p>
-            <a
-              href="#"
-              class="banner_button"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Click me
-            </a>
+      <!-- Navbar -->
+      <header>
+        <nav>
+          <h1>Heavenz</h1>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html">Products</a></li>
+            <li><a href="index.html">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- Slider -->
+      <div class="banner" role="banner">
+        <div class="slider">
+          <div class="slide">
+            <img src="images/slider/starcraft.png" alt="starcraft" />
+          </div>
+          <div class="slide">
+            <img src="images/slider/warcraft.png" alt="warcraft" />
+          </div>
+          <div class="slide">
+            <img src="images/slider/baldurs.png" alt="baldurs gate" />
+          </div>
+          <div class="slide">
+            <img src="images/slider/counter.png" alt="counter strike 1.6" />
           </div>
         </div>
-      </section>
+        <div class="slider-controls">
+          <button id="prev">
+            <svg
+              width="60"
+              height="121"
+              viewBox="0 0 60 121"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M47.7401 87.8708L42.4351 93.1708L13.5401 64.2858C13.0743 63.823 12.7046 63.2726 12.4524 62.6663C12.2002 62.0601 12.0703 61.4099 12.0703 60.7533C12.0703 60.0967 12.2002 59.4465 12.4524 58.8403C12.7046 58.234 13.0743 57.6836 13.5401 57.2208L42.4351 28.3208L47.7351 33.6208L20.6151 60.7458L47.7401 87.8708Z"
+                fill="#727272"
+              />
+            </svg>
+          </button>
+          <button id="next">
+            <svg
+              width="60"
+              height="120"
+              viewBox="0 0 60 120"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12.2599 32.9002L17.5649 27.6002L46.4599 56.4852C46.9257 56.948 47.2954 57.4984 47.5476 58.1047C47.7998 58.7109 47.9297 59.3611 47.9297 60.0177C47.9297 60.6743 47.7998 61.3245 47.5476 61.9307C47.2954 62.537 46.9257 63.0874 46.4599 63.5502L17.5649 92.4502L12.2649 87.1502L39.3849 60.0252L12.2599 32.9002Z"
+                fill="#727272"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="slider-dots">
+          <button class="dot active"></button>
+          <button class="dot"></button>
+          <button class="dot"></button>
+          <button class="dot"></button>
+        </div>
+      </div>
 
       <div class="wrapper">
         <!-- Products -->
