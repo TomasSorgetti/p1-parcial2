@@ -2,10 +2,12 @@ import { products } from "../../data/index.js";
 import { Product } from "../../entities/products.entity.js";
 import { setLoading } from "../../index.js";
 import { cutText } from "../../common/utils/cutText.js";
+import { Modal } from "../../common/ui/modal.js";
 
 export class ProductService {
   #products;
   constructor() {
+    this.modal = new Modal("modal");
     this.#products = this.#setProducts();
   }
 
@@ -158,7 +160,9 @@ export class ProductService {
     detailButton.classList.add("detail-button");
     detailButton.textContent = "Ver más";
     detailButton.addEventListener("click", () => {
-      this.#generateModal(product, addToCartCb, stockController);
+      this.modal.show(() =>
+        this.#generateProductDetail(product, addToCartCb, stockController)
+      );
     });
 
     // Card Button
@@ -272,46 +276,19 @@ export class ProductService {
     }, 600);
   }
 
-  // TODO => Agregar categorías al modal
-  #generateModal(product, addToCartCb, stockController) {
-    const modal = document.getElementById("modal");
-    // const stock = stockController.getStockByProductId(product.id);
+  #generateProductDetail(product, addToCartCb, stockController) {
+    const container = document.createElement("div");
+    container.className = "modal-container";
 
-    // evento para cerrar el modal
-    modal.addEventListener("click", () => {
-      modal.removeAttribute("class");
-    });
-    modal.innerHTML = "";
-    // seteo el modal a mostrar
-    modal.className = "show";
-    // creo el contenido del modal
-    const modalContent = document.createElement("div");
-    modal.appendChild(modalContent);
-    modalContent.className = "modal-content";
-
-    // evento para evitar que se cierre el modal al hacer click en el contenido
-    modalContent.addEventListener("click", (event) => {
-      event.stopPropagation();
-    });
-
-    // creo el boton para cerrar el modal
-    const closeModalButton = document.createElement("button");
-    closeModalButton.textContent = "X";
-    closeModalButton.className = "close-modal";
-    modalContent.appendChild(closeModalButton);
-    closeModalButton.className = "close-modal";
-    closeModalButton.addEventListener("click", () => {
-      modal.removeAttribute("class");
-    });
     // creo la imágen del modal
     const modalImage = document.createElement("img");
-    modalContent.appendChild(modalImage);
+    container.appendChild(modalImage);
     modalImage.src = product.image;
     modalImage.alt = product.name;
 
     // creo el contenedor del texto del modal
     const modalTextContainer = document.createElement("div");
-    modalContent.appendChild(modalTextContainer);
+    container.appendChild(modalTextContainer);
     modalTextContainer.className = "modal-text-container";
     // creo el titulo del modal
     const modalTitle = document.createElement("h3");
@@ -406,5 +383,7 @@ export class ProductService {
         cart.classList.replace("hidden", "show");
       }
     });
+
+    return container;
   }
 }

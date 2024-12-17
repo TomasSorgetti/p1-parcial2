@@ -200,7 +200,7 @@ export class CartService {
 
     const buyButton = document.getElementById("buy-cart");
     buyButton.addEventListener("click", () => {
-      alert("NOT_IMPLEMENTED");
+      console.log("NOT_IMPLEMENTED");
     });
   }
 
