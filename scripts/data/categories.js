@@ -2,31 +2,31 @@ export const categories = [
   {
     id: 1,
     name: "todos",
-    image: "",
+    image: "all.png",
   },
   {
     id: 2,
     name: "Survival",
-    image: "",
+    image: "survival.png",
   },
   {
     id: 3,
     name: "RPG",
-    image: "",
+    image: "rpg.png",
   },
   {
     id: 4,
     name: "FPS",
-    image: "",
+    image: "fps.png",
   },
   {
     id: 5,
     name: "Strategy",
-    image: "",
+    image: "strategy.png",
   },
   {
     id: 6,
     name: "Fantasy",
-    image: "",
+    image: "fantasy.png",
   },
 ];

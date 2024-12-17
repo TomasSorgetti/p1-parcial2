@@ -13,42 +13,8 @@
   </head>
   <body>
     <main id="main">
-      <!-- Modal -->
-      <div id="modal"></div>
-
-      <!-- Cart -->
-      <div id="cart" class="hidden">
-        <button id="close-cart">
-          <svg
-            width="40"
-            height="40"
-            viewBox="0 0 50 50"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M25.0001 27.946L36.7855 39.7314C37.1784 40.1109 37.7047 40.3209 38.2509 40.3161C38.7972 40.3114 39.3197 40.0923 39.706 39.706C40.0922 39.3198 40.3113 38.7972 40.3161 38.251C40.3208 37.7047 40.1108 37.1785 39.7313 36.7856L27.9459 25.0001L39.7313 13.2147C40.1108 12.8218 40.3208 12.2956 40.3161 11.7493C40.3113 11.2031 40.0922 10.6805 39.706 10.2943C39.3197 9.90801 38.7972 9.68891 38.2509 9.68416C37.7047 9.67941 37.1784 9.8894 36.7855 10.2689L25.0001 22.0543L13.2147 10.2689C12.82 9.89878 12.2968 9.69674 11.7558 9.70553C11.2148 9.71431 10.6984 9.93323 10.3159 10.316C9.93347 10.6987 9.71491 11.2152 9.70651 11.7562C9.69811 12.2972 9.90052 12.8203 10.2709 13.2147L22.0542 25.0001L10.2688 36.7856C10.0698 36.9777 9.91114 37.2076 9.80195 37.4618C9.69277 37.716 9.63529 37.9894 9.63289 38.266C9.63049 38.5426 9.6832 38.8169 9.78795 39.073C9.8927 39.329 10.0474 39.5616 10.243 39.7572C10.4386 39.9528 10.6712 40.1075 10.9273 40.2123C11.1833 40.317 11.4576 40.3697 11.7342 40.3673C12.0109 40.3649 12.2842 40.3075 12.5384 40.1983C12.7926 40.0891 13.0225 39.9304 13.2147 39.7314L25.0001 27.946Z"
-              fill="#E6E6E6"
-            />
-          </svg>
-        </button>
-        <span class="cart-title">Carrito de compra</span>
-        <!-- Cart items -->
-        <div id="cart-items"></div>
-        <!-- Cart buttons -->
-        <div class="cart-buttons">
-          <p>
-            Total: <span>$<span id="total-price"></span></span>
-          </p>
-          <button id="clear-cart">Vaciar carrito</button>
-          <a class="buy-cart" href="pages/checkout.html">Comprar</a>
-        </div>
-      </div>
-
       <!-- Navbar -->
-      <!-- <header>
+      <header>
         <nav>
           <h1>Heavenz</h1>
           <ul>
@@ -57,7 +23,7 @@
             <li><a href="index.html">Contact</a></li>
           </ul>
         </nav>
-      </header> -->
+      </header>
 
       <!-- Slider -->
       <div class="banner" role="banner">
@@ -141,23 +107,94 @@
       </div>
     </main>
 
-    <footer>
-      <ul>
-        <li>Profesor Fabrizio Carlassara</li>
-        <li>
-          <a
-            href="mailto:fabrizio.carlassara@davinci.edu.ar?subject=P1%20-%20Consulta%20-%20DW2[M|T|N][A|B]%20-%20Apellido,%20Nombre"
-            target="_blank"
-            >fabrizio.carlassara@davinci.edu.ar</a
-          >
-        </li>
-        <li>Programación 1</li>
-        <li>
-          <!-- Reemplazar por el link del repositorio de GitHub -->
-          <a href="#">URL del repo de GitHub</a>
-        </li>
-      </ul>
+    <footer class="footer">
+      <div class="footer-wrapper">
+        <div class="content">
+          <a href="#" class="logo"> G<span>D</span> </a>
+          <section class="contact">
+            <address>
+              <span class="footerHeading">Contact info</span>
+              <a href="mailto:tomassorgetti456@gmail.com">
+                tomassorgetti456@gmail.com
+              </a>
+              <a href="tel:+5491112345678">(+54 9) 11 1234-5678</a>
+            </address>
+          </section>
+
+          <nav aria-label="Company navigation" class="companyNavigation">
+            <span class="footerHeading">Company</span>
+            <ul>
+              <li>
+                <a href="#">Pricing</a>
+              </li>
+              <li>
+                <a href="#">Companies that trust us</a>
+              </li>
+              <li>
+                <a href="#">Our Work</a>
+              </li>
+              <li>
+                <a href="#">Technologies we use</a>
+              </li>
+              <li>
+                <a href="#">Contact Us</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <section class="legal">
+          <small>
+            &copy; 2024. Todos los derechos reservados a Tomás Sorgetti
+          </small>
+          <ul>
+            <li>
+              <a href="#">Website Terms</a>
+            </li>
+            <li>
+              <a href="#">Privacy Policy</a>
+            </li>
+          </ul>
+        </section>
+      </div>
     </footer>
+
+    <!-- Modal -->
+    <div id="modal"></div>
+
+    <!-- Ad -->
+    <div id="category-promotion"></div>
+
+    <!-- Cart -->
+    <div id="cart" class="hidden">
+      <button id="close-cart">
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 50 50"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M25.0001 27.946L36.7855 39.7314C37.1784 40.1109 37.7047 40.3209 38.2509 40.3161C38.7972 40.3114 39.3197 40.0923 39.706 39.706C40.0922 39.3198 40.3113 38.7972 40.3161 38.251C40.3208 37.7047 40.1108 37.1785 39.7313 36.7856L27.9459 25.0001L39.7313 13.2147C40.1108 12.8218 40.3208 12.2956 40.3161 11.7493C40.3113 11.2031 40.0922 10.6805 39.706 10.2943C39.3197 9.90801 38.7972 9.68891 38.2509 9.68416C37.7047 9.67941 37.1784 9.8894 36.7855 10.2689L25.0001 22.0543L13.2147 10.2689C12.82 9.89878 12.2968 9.69674 11.7558 9.70553C11.2148 9.71431 10.6984 9.93323 10.3159 10.316C9.93347 10.6987 9.71491 11.2152 9.70651 11.7562C9.69811 12.2972 9.90052 12.8203 10.2709 13.2147L22.0542 25.0001L10.2688 36.7856C10.0698 36.9777 9.91114 37.2076 9.80195 37.4618C9.69277 37.716 9.63529 37.9894 9.63289 38.266C9.63049 38.5426 9.6832 38.8169 9.78795 39.073C9.8927 39.329 10.0474 39.5616 10.243 39.7572C10.4386 39.9528 10.6712 40.1075 10.9273 40.2123C11.1833 40.317 11.4576 40.3697 11.7342 40.3673C12.0109 40.3649 12.2842 40.3075 12.5384 40.1983C12.7926 40.0891 13.0225 39.9304 13.2147 39.7314L25.0001 27.946Z"
+            fill="#E6E6E6"
+          />
+        </svg>
+      </button>
+      <span class="cart-title">Carrito de compra</span>
+      <!-- Cart items -->
+      <div id="cart-items"></div>
+      <!-- Cart buttons -->
+      <div class="cart-buttons">
+        <p>
+          Total: <span>$<span id="total-price"></span></span>
+        </p>
+        <button id="clear-cart">Vaciar carrito</button>
+        <a class="buy-cart" href="pages/checkout.html">Comprar</a>
+      </div>
+    </div>
 
     <script type="module" src="scripts/index.js"></script>
   </body>

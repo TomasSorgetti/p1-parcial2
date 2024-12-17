@@ -376,6 +376,7 @@ body {
   align-items: flex-start;
   justify-content: flex-start;
   gap: 1rem;
+  background-color: var(--dark-gray);
 }
 .cart-info {
   height: 100%;
@@ -628,4 +629,21 @@ body {
   height: 42px;
   border-radius: 0.375rem;
   background-color: var(--dark-gray);
+}
+
+#category-promotion {
+  position: fixed;
+  bottom: 100px;
+  left: 0;
+  border-bottom: 2px solid var(--pink);
+}
+.ad-content {
+  position: relative;
+}
+.close-ad-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  padding: 0.1rem 0.3rem;
 }

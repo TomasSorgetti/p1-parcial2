@@ -9,16 +9,7 @@ export class CategoryController {
 
   getSelectorCategories() {
     try {
-      const categories = this.#categoryService.getAllCategories();
-      const selector = document.querySelector("#selector");
-      // creo un option por cada categoría
-      categories.forEach((category) => {
-        const option = document.createElement("option");
-        option.id = `category-${category.id}`;
-        option.value = category.name;
-        option.textContent = category.name;
-        selector.appendChild(option);
-      });
+      this.#categoryService.getAllCategories();
     } catch (error) {
       console.log(error);
     }
