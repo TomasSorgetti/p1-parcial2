@@ -251,17 +251,25 @@ export class ProductService {
 
     // vuevlo a renderizar los productos borrando y cargando denuevo las cards
     const productContainer = document.querySelector("#products");
+
     productContainer.innerHTML = "";
-
-    if (filteredProducts.length === 0) {
-      productContainer.textContent = "No se encontraron productos.";
-    }
-
-    filteredProducts.forEach((product) => {
-      productContainer.appendChild(
-        this.#createProductCard(product, addToCartCb)
-      );
+    filteredProducts.forEach(() => {
+      productContainer.appendChild(this.#createSkeletonCard());
     });
+
+    setTimeout(() => {
+      productContainer.innerHTML = "";
+
+      if (filteredProducts.length === 0) {
+        productContainer.textContent = "No se encontraron productos.";
+      }
+
+      filteredProducts.forEach((product) => {
+        productContainer.appendChild(
+          this.#createProductCard(product, addToCartCb)
+        );
+      });
+    }, 600);
   }
 
   // TODO => Agregar categorías al modal
