@@ -243,9 +243,17 @@ export class CartService {
     );
   }
 
+  // TODO => En el checkout se debe solicitar la información del cliente (nombre, teléfono, email, lugar
+  // TODO => y fecha de entrega) y del pago (método de pago, cuotas –si corresponde–). Este proceso
+  // TODO => debe tener la posibilidad de cancelarse para seguir agregando o eliminando productos
+  // TODO => del carro.
   #generateCheckout() {
     const content = document.createElement("div");
     content.className = "checkout-content";
+
+    const title = document.createElement("h2");
+    title.textContent = "Continuar con la compra";
+    content.appendChild(title);
 
     const form = document.createElement("form");
     form.action = "#";
@@ -253,7 +261,17 @@ export class CartService {
     form.id = "checkout-form";
     content.appendChild(form);
 
+    const topFormContainer = document.createElement("div");
+    topFormContainer.className = "checkout-top-cont";
+    form.appendChild(topFormContainer);
+
+    const fieldsCont = document.createElement("div");
+    fieldsCont.className = "checkout-fields-cont";
+    topFormContainer.appendChild(fieldsCont);
+
+    // Nombre
     const nameField = new FormField({
+      label: "Nombre:",
       type: "text",
       name: "name",
       placeholder: "John Doe",
@@ -265,22 +283,110 @@ export class CartService {
           value.length < 3 ? "El nombre debe tener al menos 3 caracteres" : "",
       ],
     });
-    form.appendChild(nameField.createField());
+    fieldsCont.appendChild(nameField.createField());
 
+    // Teléfono
+    const phoneField = new FormField({
+      label: "Teléfono:",
+      type: "text",
+      name: "phone",
+      placeholder: "+541112345678",
+      id: "checkout-phone",
+      validate: [
+        (value) =>
+          value.trim() === "" ? "El teléfono no puede estar vacío" : "",
+      ],
+    });
+    fieldsCont.appendChild(phoneField.createField());
+
+    // Email
     const emailField = new FormField({
+      label: "Email:",
       type: "text",
       name: "email",
       placeholder: "johndoe@example.com",
       id: "checkout-email",
       validate: [
-        (value) =>
-          value.trim() === "" ? "El nombre no puede estar vacío" : "",
+        (value) => (value.trim() === "" ? "El email no puede estar vacío" : ""),
         (value) =>
           !/\S+@\S+\.\S+/.test(value) ? "Ingrese un email válido" : "",
       ],
     });
-    form.appendChild(emailField.createField());
+    fieldsCont.appendChild(emailField.createField());
 
+    // Location
+    const locationField = new FormField({
+      label: "Localidad:",
+      type: "text",
+      name: "location",
+      placeholder: "Buenos Aires, Argentina",
+      id: "checkout-location",
+      validate: [
+        (value) =>
+          value.trim() === "" ? "La localidad no puede estar vacía" : "",
+      ],
+    });
+    fieldsCont.appendChild(locationField.createField());
+
+    // Date
+    const dateField = new FormField({
+      label: "Fecha de entrega:",
+      type: "date",
+      name: "date",
+      id: "checkout-date",
+      validate: [
+        (value) => (value.trim() === "" ? "La fecha no puede estar vacía" : ""),
+      ],
+    });
+    fieldsCont.appendChild(dateField.createField());
+
+    const rightFormContainer = document.createElement("div");
+    rightFormContainer.className = "checkout-right-cont";
+    topFormContainer.appendChild(rightFormContainer);
+    // TODO => Payment
+
+    // checkout cart items list
+    const checkoutCartItems = document.createElement("ul");
+    checkoutCartItems.className = "checkout-cart-items";
+    rightFormContainer.appendChild(checkoutCartItems);
+
+    const cartProducts = this.#cart.getCartProducts();
+    cartProducts.forEach((product) => {
+      const checkoutCartItem = document.createElement("li");
+      checkoutCartItem.className = "checkout-cart-item";
+      checkoutCartItem.textContent = `${product.quantity} x ${
+        product.product.name
+      } - $${product.product.price * product.quantity}`;
+      checkoutCartItems.appendChild(checkoutCartItem);
+    });
+    const totalPrice = document.createElement("li");
+    totalPrice.className = "checkout-total-price";
+    totalPrice.textContent = `Total: $${this.#cart.getTotalPrice()}`;
+    checkoutCartItems.appendChild(totalPrice);
+
+    //! Buttons Container
+    const buttonsContainer = document.createElement("div");
+    buttonsContainer.className = "checkout-buttons-container";
+    form.appendChild(buttonsContainer);
+    // Cancel Button
+    const cancelButton = document.createElement("button");
+    cancelButton.type = "reset";
+    cancelButton.textContent = "Cancelar";
+    buttonsContainer.appendChild(cancelButton);
+    cancelButton.addEventListener("click", () => this.modal.hide());
+    // Buy Button
+    const buyButton = document.createElement("button");
+    buyButton.type = "submit";
+    buyButton.textContent = "Comprar";
+    buttonsContainer.appendChild(buyButton);
+    buyButton.addEventListener("click", () => {
+      // TODO => Loading Spinner while checkout is being processed
+      this.modal.hide();
+      this.#cart.clearCart();
+      this.#updateLocalStorage();
+      this.displayCart();
+      document.getElementById("cart").classList.replace("show", "hidden");
+    });
     return content;
   }
 }

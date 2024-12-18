@@ -658,15 +658,6 @@ body {
   padding: 0.1rem 0.3rem;
 }
 
-.checkout-content {
-  height: 400px;
-  width: 600px;
-  background-color: white;
-}
-.error-field {
-  color: red;
-}
-
 @keyframes skeleton {
   0% {
     opacity: 1;
@@ -677,4 +668,50 @@ body {
   100% {
     opacity: 1;
   }
+}
+.checkout-content {
+  height: 600px;
+  width: 800px;
+  background-color: white;
+  text-align: center;
+  padding: 2rem 4rem;
+  border-radius: 8px;
+}
+
+#checkout-form {
+  text-align: left;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+}
+.checkout-top-cont {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 4rem;
+}
+.checkout-fields-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 300px;
+}
+.form-field input {
+  height: 28px;
+}
+.error-field {
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  color: red;
 }

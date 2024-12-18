@@ -2,6 +2,7 @@ export class FormField {
   constructor({
     type,
     name,
+    label,
     placeholder,
     value,
     id,
@@ -9,6 +10,7 @@ export class FormField {
     validate = [],
   }) {
     this.type = type;
+    this.label = label;
     this.name = name;
     this.placeholder = placeholder;
     this.value = value;
@@ -23,7 +25,7 @@ export class FormField {
 
     // Label
     const label = document.createElement("label");
-    label.textContent = this.name;
+    label.textContent = this.label;
     formField.appendChild(label);
 
     // Input
