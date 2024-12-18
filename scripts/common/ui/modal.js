@@ -21,16 +21,16 @@ export class Modal {
     this.modalContent.appendChild(this.closeButton);
   }
 
-  show(contentGenerator) {
-    this.modalContent.innerHTML = ""; // Limpia el contenido anterior
-    this.modalContent.appendChild(this.closeButton); // Agrega el botón de cerrar
-    const content = contentGenerator(); // Genera el contenido dinámico
+  show(modalContent) {
+    this.modalContent.innerHTML = "";
+    this.modalContent.appendChild(this.closeButton);
+    const content = modalContent();
     this.modalContent.appendChild(content);
     this.modal.classList.add("show");
   }
 
   hide() {
     this.modal.classList.remove("show");
-    this.modalContent.innerHTML = ""; // Limpia el contenido
+    this.modalContent.innerHTML = "";
   }
 }

@@ -1,10 +1,13 @@
 import { Cart } from "../../entities/cart.entity.js";
 import { Product } from "../../entities/products.entity.js";
+import { Modal } from "../../common/ui/modal.js";
+import { FormField } from "../../common/ui/formField.js";
 
 export class CartService {
   #cart;
 
   constructor() {
+    this.modal = new Modal("modal");
     this.#cart = new Cart();
   }
 
@@ -200,7 +203,7 @@ export class CartService {
 
     const buyButton = document.getElementById("buy-cart");
     buyButton.addEventListener("click", () => {
-      console.log("NOT_IMPLEMENTED");
+      this.modal.show(() => this.#generateCheckout());
     });
   }
 
@@ -238,5 +241,46 @@ export class CartService {
       "cartProducts",
       JSON.stringify(this.#cart.getCartProducts())
     );
+  }
+
+  #generateCheckout() {
+    const content = document.createElement("div");
+    content.className = "checkout-content";
+
+    const form = document.createElement("form");
+    form.action = "#";
+    form.method = "post";
+    form.id = "checkout-form";
+    content.appendChild(form);
+
+    const nameField = new FormField({
+      type: "text",
+      name: "name",
+      placeholder: "John Doe",
+      id: "checkout-name",
+      validate: [
+        (value) =>
+          value.trim() === "" ? "El nombre no puede estar vacío" : "",
+        (value) =>
+          value.length < 3 ? "El nombre debe tener al menos 3 caracteres" : "",
+      ],
+    });
+    form.appendChild(nameField.createField());
+
+    const emailField = new FormField({
+      type: "text",
+      name: "email",
+      placeholder: "johndoe@example.com",
+      id: "checkout-email",
+      validate: [
+        (value) =>
+          value.trim() === "" ? "El nombre no puede estar vacío" : "",
+        (value) =>
+          !/\S+@\S+\.\S+/.test(value) ? "Ingrese un email válido" : "",
+      ],
+    });
+    form.appendChild(emailField.createField());
+
+    return content;
   }
 }

@@ -381,6 +381,7 @@ export class ProductService {
       const cart = document.getElementById("cart");
       if (cart.classList.contains("hidden")) {
         cart.classList.replace("hidden", "show");
+        this.modal.hide();
       }
     });
 
