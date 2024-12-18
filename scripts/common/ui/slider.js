@@ -14,6 +14,10 @@ export class Slider {
     this.bindEvents();
     this.updateUI();
     this.startAutoplay();
+
+    document.addEventListener("keydown", (event) =>
+      this.handleChangeImageWithKey(event)
+    );
   }
 
   updateUI() {
@@ -35,6 +39,16 @@ export class Slider {
     this.currentIndex =
       (this.currentIndex - 1 + this.slides.length) % this.slides.length;
     this.updateUI();
+  }
+
+  handleChangeImageWithKey(event) {
+    if (event.key === "ArrowRight") {
+      this.nextSlide();
+      this.stopAutoplay();
+    } else if (event.key === "ArrowLeft") {
+      this.prevSlide();
+      this.stopAutoplay();
+    }
   }
 
   startAutoplay() {
