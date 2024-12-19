@@ -1,5 +1,5 @@
 Alumnos/as: Tomás Sorgetti
-Cuatrimestre: 
+Cuatrimestre: 2
 Comisión: 
 Turno: Noche
 Materia: Programación 1
