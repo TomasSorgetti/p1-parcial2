@@ -203,7 +203,7 @@ export class CartService {
 
     const buyButton = document.getElementById("buy-cart");
     buyButton.addEventListener("click", () => {
-      if (products.length === 0) return;
+      if (this.#cart.getCartProducts().length === 0) return;
       this.modal.show(() => this.#generateCheckout());
     });
   }
