@@ -203,6 +203,7 @@ export class CartService {
 
     const buyButton = document.getElementById("buy-cart");
     buyButton.addEventListener("click", () => {
+      if (products.length === 0) return;
       this.modal.show(() => this.#generateCheckout());
     });
   }
@@ -476,11 +477,10 @@ export class CartService {
       document.getElementById("cuotas-price").textContent =
         selectedCuota === "1"
           ? `único pago de $${this.#cart.getTotalPrice()}`
-          : `${selectedCuota} cuotas de $${
-              (this.#cart.getTotalPrice() * (1 + 0.05 * selectedCuota)).toFixed(
-                2
-              ) / selectedCuota
-            }
+          : `${selectedCuota} cuotas de $${(
+              (this.#cart.getTotalPrice() * (1 + 0.05 * selectedCuota)) /
+              selectedCuota
+            ).toFixed(2)}
         `;
     });
 
@@ -491,16 +491,18 @@ export class CartService {
     // Cancel Button
     const cancelButton = document.createElement("button");
     cancelButton.type = "reset";
-    cancelButton.textContent = "Cancelar";
+    cancelButton.className = "checkout-cancel-button";
+    cancelButton.textContent = "Seguir navegando";
     buttonsContainer.appendChild(cancelButton);
     cancelButton.addEventListener("click", () => this.modal.hide());
 
     // Buy Button
     const buyButton = document.createElement("button");
     buyButton.type = "button";
+    buyButton.className = "checkout-buy-button";
     buyButton.textContent = "Continuar con la compra";
     buttonsContainer.appendChild(buyButton);
-    // Evento del botón
+
     buyButton.addEventListener("click", () => {
       const fields = [
         nameField,
@@ -525,7 +527,9 @@ export class CartService {
 
       if (!allValid) return;
 
+      this.modal.setProcessing(true);
       buyButton.disabled = true;
+      cancelButton.disabled = true;
       buyButton.textContent = "Procesando...";
 
       const loadingElement = document.createElement("img");
@@ -533,13 +537,16 @@ export class CartService {
       loadingElement.alt = "Loading...";
       loadingElement.id = "checkout-loading";
       content.appendChild(loadingElement);
+
       setTimeout(() => {
         this.modal.hide();
+        this.modal.setProcessing(false);
         this.#cart.clearCart();
         this.#updateLocalStorage();
         this.displayCart();
         content.innerHTML = "";
 
+        cancelButton.disabled = false;
         buyButton.disabled = false;
         buyButton.textContent = "Comprar";
       }, 3000);

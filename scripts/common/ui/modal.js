@@ -5,6 +5,8 @@ export class Modal {
       console.error(`No se encontró el elemento de modal"`);
     }
 
+    this.isProcessing = false;
+
     this.modalContent = document.createElement("div");
     this.modalContent.className = "modal-content";
     this.modal.appendChild(this.modalContent);
@@ -20,7 +22,9 @@ export class Modal {
     this.closeButton.addEventListener("click", () => this.hide());
     this.modalContent.appendChild(this.closeButton);
 
-    document.addEventListener("keydown", (event) => this.handleCloseWithKey(event));
+    document.addEventListener("keydown", (event) =>
+      this.handleCloseWithKey(event)
+    );
   }
 
   show(modalContent) {
@@ -31,13 +35,24 @@ export class Modal {
     this.modal.classList.add("show");
   }
 
+  setProcessing(processing) {
+    this.isProcessing = processing;
+  }
+
   hide() {
+    if (this.isProcessing) {
+      return;
+    }
     this.modal.classList.remove("show");
     this.modalContent.innerHTML = "";
   }
 
   handleCloseWithKey(event) {
-    if (event.key === "Escape" && this.modal.classList.contains("show")) {
+    if (
+      event.key === "Escape" &&
+      this.modal.classList.contains("show") &&
+      !this.isProcessing
+    ) {
       this.hide();
     }
   }
