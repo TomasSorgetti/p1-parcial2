@@ -21,7 +21,7 @@ export class CategoryPromotion {
       const adContent = document.createElement("div");
       adContent.className = "ad-content";
       const addImage = document.createElement("img");
-      addImage.src = `../../../images/categories/${selectedCategory.image}`;
+      addImage.src = `images/categories/${selectedCategory.image}`;
       addImage.alt = selectedCategory.name;
       adContent.appendChild(addImage);
       const closeAdBtn = document.createElement("button");

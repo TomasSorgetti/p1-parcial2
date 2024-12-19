@@ -476,10 +476,11 @@ export class CartService {
       document.getElementById("cuotas-price").textContent =
         selectedCuota === "1"
           ? `único pago de $${this.#cart.getTotalPrice()}`
-          : `${selectedCuota} cuotas de $${(
-              this.#cart.getTotalPrice() *
-              (1 + 0.04 * selectedCuota)
-            ).toFixed(2)}
+          : `${selectedCuota} cuotas de $${
+              (this.#cart.getTotalPrice() * (1 + 0.05 * selectedCuota)).toFixed(
+                2
+              ) / selectedCuota
+            }
         `;
     });
 
@@ -538,7 +539,7 @@ export class CartService {
         this.#updateLocalStorage();
         this.displayCart();
         content.innerHTML = "";
-        
+
         buyButton.disabled = false;
         buyButton.textContent = "Comprar";
       }, 3000);

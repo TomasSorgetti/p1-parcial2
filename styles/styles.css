@@ -669,6 +669,7 @@ header nav ul li a:hover {
   bottom: 100px;
   left: 0;
   border-bottom: 2px solid var(--pink);
+  z-index: 99;
 }
 .ad-content {
   position: relative;
@@ -800,7 +801,7 @@ header nav ul li a:hover {
 }
 .footer-wrapper {
   max-width: 1200px;
-  margin: 0 1rem;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
