@@ -26,6 +26,26 @@ body {
 ul {
   list-style: none;
 }
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+header nav ul {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+header nav ul li a {
+  color: var(--white);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+header nav ul li a:hover {
+  color: var(--pink);
+}
 #loader {
   color: red;
 }
@@ -793,13 +813,11 @@ ul {
   padding: 1rem;
   text-align: center;
 }
+
 .logo {
-  color: var(--white);
-  font-size: 5rem;
+  font-size: 2rem;
   text-decoration: none;
   font-weight: 600;
-}
-.logo span {
   color: var(--pink);
 }
 
