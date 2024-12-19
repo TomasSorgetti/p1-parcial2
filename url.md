@@ -1,3 +1,9 @@
-# url
+# Urls del final 😃
 
-Acá dejen el link de la página que hicieron para el final hosteada 😃 $\to$ [link](https://tomassorgetti.github.io/p1-parcial2).
+## Url del GitHub:
+
+[GitHub](https://github.com/TomasSorgetti/p1-parcial2)
+
+## Url del Sitio deployado:
+
+[WebSite](https://tomassorgetti.github.io/p1-parcial2)
