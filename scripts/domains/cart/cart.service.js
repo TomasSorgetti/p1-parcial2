@@ -243,10 +243,6 @@ export class CartService {
     );
   }
 
-  // TODO => En el checkout se debe solicitar la información del cliente (nombre, teléfono, email, lugar
-  // TODO => y fecha de entrega) y del pago (método de pago, cuotas –si corresponde–). Este proceso
-  // TODO => debe tener la posibilidad de cancelarse para seguir agregando o eliminando productos
-  // TODO => del carro.
   #generateCheckout() {
     const content = document.createElement("div");
     content.className = "checkout-content";
@@ -340,29 +336,152 @@ export class CartService {
     });
     fieldsCont.appendChild(dateField.createField());
 
+    //! RIGHT CONTAINER
     const rightFormContainer = document.createElement("div");
     rightFormContainer.className = "checkout-right-cont";
     topFormContainer.appendChild(rightFormContainer);
-    // TODO => Payment
 
-    // checkout cart items list
-    const checkoutCartItems = document.createElement("ul");
-    checkoutCartItems.className = "checkout-cart-items";
-    rightFormContainer.appendChild(checkoutCartItems);
-
-    const cartProducts = this.#cart.getCartProducts();
-    cartProducts.forEach((product) => {
-      const checkoutCartItem = document.createElement("li");
-      checkoutCartItem.className = "checkout-cart-item";
-      checkoutCartItem.textContent = `${product.quantity} x ${
-        product.product.name
-      } - $${product.product.price * product.quantity}`;
-      checkoutCartItems.appendChild(checkoutCartItem);
+    // card number
+    const cardNumberField = new FormField({
+      label: "Número de Tarjeta:",
+      type: "text",
+      name: "card-number",
+      placeholder: "0000 0000 0000 0000",
+      id: "checkout-card-number",
+      validate: [
+        (value) =>
+          value.trim() === ""
+            ? "El número de tarjeta no puede estar vacío"
+            : "",
+      ],
     });
-    const totalPrice = document.createElement("li");
-    totalPrice.className = "checkout-total-price";
-    totalPrice.textContent = `Total: $${this.#cart.getTotalPrice()}`;
-    checkoutCartItems.appendChild(totalPrice);
+    rightFormContainer.appendChild(cardNumberField.createField());
+
+    // Titular
+    const titularField = new FormField({
+      label: "Titular de tarjeta:",
+      type: "text",
+      name: "card-titular",
+      placeholder: "John Doe",
+      id: "checkout-titular",
+      validate: [
+        (value) =>
+          value.trim() === ""
+            ? "El número de tarjeta no puede estar vacío"
+            : "",
+      ],
+    });
+    rightFormContainer.appendChild(titularField.createField());
+
+    // card titular container
+    const cardTitularContainer = document.createElement("div");
+    cardTitularContainer.className = "card-titular-container";
+    rightFormContainer.appendChild(cardTitularContainer);
+    // Vencimiento
+    const expirationField = new FormField({
+      label: "Vencimiento:",
+      type: "text",
+      name: "card-expiration",
+      placeholder: "MM/AA",
+      id: "checkout-expiration",
+      validate: [(value) => (value.trim() === "" ? "Vencimiento vacío" : "")],
+    });
+    cardTitularContainer.appendChild(expirationField.createField());
+    // CVV
+    const cvvField = new FormField({
+      label: "CVV:",
+      type: "text",
+      name: "card-cvv",
+      placeholder: "123",
+      id: "checkout-cvv",
+      validate: [
+        (value) => (value.trim() === "" ? "CVV de tarjeta vacío" : ""),
+      ],
+    });
+    cardTitularContainer.appendChild(cvvField.createField());
+
+    // Titular identification Container
+    const identificationContainer = document.createElement("div");
+    identificationContainer.className = "card-identification-container";
+    rightFormContainer.appendChild(identificationContainer);
+    // Identification
+    const identificationSelect = document.createElement("select");
+    identificationSelect.name = "card-identification-type";
+    identificationSelect.id = "checkout-identification-type";
+    const identificationOptions = [
+      { value: "dni", text: "DNI" },
+      { value: "passport", text: "Pasaporte" },
+    ];
+    identificationOptions.forEach((option) => {
+      const optionElement = document.createElement("option");
+      optionElement.value = option.value;
+      optionElement.textContent = option.text;
+      identificationSelect.appendChild(optionElement);
+    });
+    identificationContainer.appendChild(identificationSelect);
+    let identificationPlaceholder = "DNI del Titular";
+
+    identificationSelect.addEventListener("change", () => {
+      const selectedOption = document.getElementById(
+        "checkout-identification-type"
+      ).value;
+      identificationPlaceholder =
+        selectedOption === "dni" ? "DNI del Titular" : "Pasaporte del Titular";
+      document.getElementById("checkout-identification").placeholder =
+        identificationPlaceholder;
+    });
+
+    const identificationField = new FormField({
+      type: "text",
+      name: "card-identification",
+      placeholder: identificationPlaceholder,
+      id: "checkout-identification",
+      validate: [
+        (value) => (value.trim() === "" ? "La identificación está vacía" : ""),
+      ],
+    });
+    identificationContainer.appendChild(identificationField.createField());
+
+    //! Cuotas
+    const cuotasContainer = document.createElement("div");
+    cuotasContainer.className = "cuotas-container";
+    rightFormContainer.appendChild(cuotasContainer);
+
+    let finalPrice = this.#cart.getTotalPrice();
+
+    const cuotas = document.createElement("select");
+    cuotas.name = "cuotas";
+    cuotas.id = "cuotas";
+    const cuotasOptions = [
+      { value: "1", text: "1 cuota" },
+      { value: "3", text: "3 cuotas" },
+      { value: "6", text: "6 cuotas" },
+      { value: "12", text: "12 cuotas" },
+    ];
+    cuotasOptions.forEach((option) => {
+      const optionElement = document.createElement("option");
+      optionElement.value = option.value;
+      optionElement.textContent = option.text;
+      cuotas.appendChild(optionElement);
+    });
+    cuotasContainer.appendChild(cuotas);
+
+    const price = document.createElement("p");
+    price.textContent = `único pago de $${finalPrice}`;
+    price.id = "cuotas-price";
+    cuotasContainer.appendChild(price);
+
+    cuotas.addEventListener("change", () => {
+      const selectedCuota = document.getElementById("cuotas").value;
+      document.getElementById("cuotas-price").textContent =
+        selectedCuota === "1"
+          ? `único pago de $${this.#cart.getTotalPrice()}`
+          : `${selectedCuota} cuotas de $${(
+              this.#cart.getTotalPrice() *
+              (1 + 0.04 * selectedCuota)
+            ).toFixed(2)}
+        `;
+    });
 
     //! Buttons Container
     const buttonsContainer = document.createElement("div");
@@ -374,19 +493,57 @@ export class CartService {
     cancelButton.textContent = "Cancelar";
     buttonsContainer.appendChild(cancelButton);
     cancelButton.addEventListener("click", () => this.modal.hide());
+
     // Buy Button
     const buyButton = document.createElement("button");
-    buyButton.type = "submit";
-    buyButton.textContent = "Comprar";
+    buyButton.type = "button";
+    buyButton.textContent = "Continuar con la compra";
     buttonsContainer.appendChild(buyButton);
+    // Evento del botón
     buyButton.addEventListener("click", () => {
-      // TODO => Loading Spinner while checkout is being processed
-      this.modal.hide();
-      this.#cart.clearCart();
-      this.#updateLocalStorage();
-      this.displayCart();
-      document.getElementById("cart").classList.replace("show", "hidden");
+      const fields = [
+        nameField,
+        phoneField,
+        emailField,
+        locationField,
+        dateField,
+        cardNumberField,
+        titularField,
+        expirationField,
+        cvvField,
+        identificationField,
+      ];
+
+      // Validar todos los campos
+      let allValid = true;
+      fields.forEach((field) => {
+        if (!field.isValid()) {
+          allValid = false;
+        }
+      });
+
+      if (!allValid) return;
+
+      buyButton.disabled = true;
+      buyButton.textContent = "Procesando...";
+
+      const loadingElement = document.createElement("img");
+      loadingElement.src = "images/loading.png";
+      loadingElement.alt = "Loading...";
+      loadingElement.id = "checkout-loading";
+      content.appendChild(loadingElement);
+      setTimeout(() => {
+        this.modal.hide();
+        this.#cart.clearCart();
+        this.#updateLocalStorage();
+        this.displayCart();
+        content.innerHTML = "";
+        
+        buyButton.disabled = false;
+        buyButton.textContent = "Comprar";
+      }, 3000);
     });
+
     return content;
   }
 }

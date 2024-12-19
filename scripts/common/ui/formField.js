@@ -56,5 +56,11 @@ export class FormField {
     });
 
     this.errorField.textContent = this.error;
+    return !this.error; // Retorna true si no hay errores
+  }
+
+  isValid() {
+    const input = document.getElementById(this.id);
+    return this.validateField(input);
   }
 }
