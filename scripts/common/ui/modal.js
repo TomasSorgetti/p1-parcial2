@@ -40,9 +40,9 @@ export class Modal {
   }
 
   hide() {
-    if (this.isProcessing) {
-      return;
-    }
+    // if (this.isProcessing) {
+    //   return;
+    // }
     this.modal.classList.remove("show");
     this.modalContent.innerHTML = "";
   }
